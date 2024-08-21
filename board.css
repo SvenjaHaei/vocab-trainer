@@ -4,7 +4,7 @@ html, body
   height: 100%;
   padding: 0;
   margin: 0;
-  background-color: rgb(221, 232, 250)
+  background-color: blue
 }
 
 #board {
@@ -17,12 +17,14 @@ html, body
 }
 
 .text {
+  width: 200px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   font-family: Arial, Helvetica, sans-serif;
-  color: rgb(169, 164, 164);
+  font-weight: bold;
+  color: white;
   z-index: 1;
 }
 
@@ -114,8 +116,54 @@ html, body
   top: -50px;
   left: 650px;
   font-family: Arial, Helvetica, sans-serif;
-  color: black;
+  color: white;
   font-size: x-large;
   font-weight: bold;
   z-index: 1;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  position: absolute;
+  top: -50px;
+  left: -400px;
+  background-color: rgb(145, 138, 138);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: rgb(180, 171, 171);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: -400px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 8px;
+}
+
+.dropdown-content-element {
+  color: black;
+  padding: 5px 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 1;
+}
+
+.dropdown-content-element:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display:block;
 }

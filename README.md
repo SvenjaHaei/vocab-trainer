@@ -1,2 +1,1 @@
-# mipe
 # vocab-trainer

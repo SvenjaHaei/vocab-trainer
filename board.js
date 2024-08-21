@@ -7,21 +7,57 @@ class Carousel {
     this.reveal = this.reveal.bind(this)
     this.data = [[]]
     this.knownWords = 0
+    this.chapterNames = [
+      ['8. Plánujeme víkend', '0'], 
+      ['9. Lidské tělo', '1994253440'],
+      ['10. Místo, kde bydlíme', '982386913'], 
+      ['11. Na davolené', '1306385996'], 
+      ['12. Tradiční svátky', '761681440']]
 
-    // add all cards
-    this.addCards()
+    this.initBoard()
 
   }
 
-  addCards() {
+  initBoard() {
 
-    this.getData().then((res) => {
+    let dropdown= document.createElement('div')
+    dropdown.classList.add('dropdown')
+    board.appendChild(dropdown)
 
-      // add counter
-      let counter= document.createElement('div')
-      counter.classList.add('counter')
-      counter.textContent = '0/'+ res.length
-      board.appendChild(counter)
+    let button = document.createElement('button')
+    button.classList.add('dropbtn')
+    dropdown.appendChild(button)
+    button.textContent = 'Chapters'
+    button.onclick = this.showOptions
+    
+    let chapters = document.createElement('div')
+    chapters.classList.add('dropdown-content')
+    chapters.id = "chapters"
+    dropdown.appendChild(chapters)
+
+    for (let i in this.chapterNames) {
+      let chapter = document.createElement('p')
+      chapter.classList.add('dropdown-content-element')
+      chapter.textContent = this.chapterNames[i][0]
+      chapter.addEventListener("click",() => this.addCards(this.chapterNames[i][1]))
+      chapters.appendChild(chapter)
+    }
+
+    // add counter
+    let counter= document.createElement('div')
+    counter.classList.add('counter')
+    board.appendChild(counter)
+
+  }
+
+  addCards(chapter) {
+
+    this.getData(chapter).then((res) => {
+
+      // set counter
+      this.board.querySelector('.counter').textContent  = '0/'+ res.length
+      this.board.querySelector('.text').textContent = 'Great job. Get a treat.'
+      this.showOptions()
 
       this.data = res
       let i = 0
@@ -100,8 +136,8 @@ class Carousel {
       let bounds = this.topCard.getBoundingClientRect()
     
       // get finger position, top (1) or bottom (-1) of the card
-      this.isDraggingFrom =
-        (e.center.y - bounds.top) > this.topCard.clientHeight / 2 ? -1 : 1
+      this.isDraggingFrom = (e.center.y - bounds.top) > this.topCard.clientHeight / 2 ? -1 : 1
+
     }
     
     // get new coordinates
@@ -118,8 +154,7 @@ class Carousel {
     let deg = this.isDraggingFrom * dirX * Math.abs(propX) * 45
     
     // move card
-    this.topCard.style.transform =
-      'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg)' 
+    this.topCard.style.transform = 'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg)' 
 
     let image = this.topCard.querySelector("img")  
 
@@ -173,52 +208,53 @@ class Carousel {
 
         this.board.insertBefore(card, this.board.firstChild)
       
-        } 
+      } 
 
-        if (successful) {
+      if (successful) {
 
-          // throw card in the chosen direction
-          this.topCard.style.transform = 
-            'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg)'
-      
-          // wait transition end
-          setTimeout(() => {
-            // remove swiped card
-            this.board.removeChild(this.topCard)
+        // throw card in the chosen direction
+        this.topCard.style.transform = 
+          'translateX(' + posX + 'px) translateY(' + posY + 'px) rotate(' + deg + 'deg)'
+    
+        // wait transition end
+        setTimeout(() => {
+          // remove swiped card
+          this.board.removeChild(this.topCard)
 
-            // handle gestures on new top card
-            this.handle()
-          }, 500)
-      
-        } else {
+          // handle gestures on new top card
+          this.handle()
+        }, 500)
+    
+      } else {
 
-          // reset card position
-          this.topCard.style.transform =
-            'translateX(-50%) translateY(-50%) rotate(0deg)'
+        // reset card position
+        this.topCard.style.transform =
+          'translateX(-50%) translateY(-50%) rotate(0deg)'
 
-        }
-
+      }
     }
   }
 
-  reveal() {    
+  reveal() {  
+
     this.topCard.classList.add("reveal")
 
     setTimeout(() => {
-
       let index = this.data.findIndex(arr => arr.includes(this.topCard.textContent))
       this.data[index][2] = (this.data[index][2] === 0) ? 1 : 0 
       this.topCard.querySelector('.cardText').textContent = this.data[index][this.data[index][2]]    
-
     }, 250)
 
     setTimeout(() => {
       this.topCard.classList.remove("reveal")
     }, 500)
+
   }
 
-  async getData() {
-    const url = 'https://hook.we.make.com/en4nrvroy0jle52ijklp7mwtryvblkbj?id=1n7qgq8ZLq23NZe4iCw4W20boGWIte7zpPS3At_j-brI'
+  async getData(chapter) {
+
+    this.board.querySelectorAll('.card').forEach(e => e.remove())
+    const url = 'https://hook.we.make.com/en4nrvroy0jle52ijklp7mwtryvblkbj?id=1n7qgq8ZLq23NZe4iCw4W20boGWIte7zpPS3At_j-brI&gid=' + chapter
     let vocab = [[]]
 
     try {
@@ -235,11 +271,9 @@ class Carousel {
       for(let row of data.split("\n")){
         if (counter !== 0) {
           vocab[counter-1] = row.split(',')
-
           vocab[counter-1][0] = vocab[counter-1][0].replace(/(\r\n|\n|\r)/gm, "")
           vocab[counter-1][1] = vocab[counter-1][1].replace(/(\r\n|\n|\r)/gm, "")
           vocab[counter-1][2] = 0
-
         }
         counter++
       }
@@ -250,9 +284,12 @@ class Carousel {
     return vocab
 
   }
+
+  showOptions() {
+    document.getElementById("chapters").classList.toggle("show");
+  }
   
 }
 
 let board = document.querySelector('#board')
-
 let carousel = new Carousel(board)
