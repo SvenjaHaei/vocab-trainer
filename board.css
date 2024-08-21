@@ -113,8 +113,8 @@ html, body
 
 .counter {
   position: absolute;
-  top: -50px;
-  left: 650px;
+  top: -25%;
+  left: 80%;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   font-size: x-large;
@@ -125,8 +125,8 @@ html, body
 /* Dropdown Button */
 .dropbtn {
   position: absolute;
-  top: -50px;
-  left: -400px;
+  top: -30%;
+  left: 0%;
   background-color: rgb(145, 138, 138);
   color: white;
   padding: 16px;
@@ -144,12 +144,12 @@ html, body
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 10px;
-  left: -400px;
+  top: -15%;
+  left: 0%;
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 2;
   border-radius: 8px;
 }
 
