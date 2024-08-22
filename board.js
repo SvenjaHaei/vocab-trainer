@@ -12,7 +12,8 @@ class Carousel {
       ['9. Lidské tělo', '1994253440'],
       ['10. Místo, kde bydlíme', '982386913'], 
       ['11. Na davolené', '1306385996'], 
-      ['12. Tradiční svátky', '761681440']]
+      ['12. Tradiční svátky', '761681440'],
+      ['13. Výmluvy a přání', '1148019362']]
 
     this.initBoard()
 
