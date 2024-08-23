@@ -113,7 +113,7 @@ html, body
 
 .counter {
   position: absolute;
-  top: -25%;
+  top: -10%;
   left: 80%;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
@@ -125,7 +125,7 @@ html, body
 /* Dropdown Button */
 .dropbtn {
   position: absolute;
-  top: -30%;
+  top: -15%;
   left: 0%;
   background-color: rgb(145, 138, 138);
   color: white;

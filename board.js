@@ -5,6 +5,7 @@ class Carousel {
     this.board = element
     this.onPan = this.onPan.bind(this)
     this.reveal = this.reveal.bind(this)
+    this.movedCard = false
     this.data = [[]]
     this.knownWords = 0
     this.chapterNames = [
@@ -111,14 +112,15 @@ class Carousel {
 
       // pass event data to custom callback
       this.hammer.on('pan', this.onPan)
-      //this.topCard.addEventListener("click", this.reveal)
-      this.topCard.addEventListener("dblclick", this.reveal)
-
+      this.topCard.addEventListener("click", this.reveal)
+      this.topCard.addEventListener("ontouchend", this.reveal)
     }
     
   }
   
   onPan(e) {
+
+    this.movedCard = true
 
     if (!this.isPanning) {
 
@@ -172,12 +174,11 @@ class Carousel {
 
     if (e.isFinal) {
   
-      this.isPanning = false
       let successful = false
 
       // check threshold
       if (propX > 0.25) {
-
+e
         successful = true
         // get right border position
         posX = document.body.clientWidth 
@@ -224,20 +225,21 @@ class Carousel {
 
           // handle gestures on new top card
           this.handle()
+
+          this.movedCard = false
         }, 500)
     
       } else {
-
         // reset card position
         this.topCard.style.transform =
           'translateX(-50%) translateY(-50%) rotate(0deg)'
-
+        this.movedCard = false
       }
     }
   }
 
   reveal() {  
-
+    if(this.movedCard) return
     this.topCard.classList.add("reveal")
 
     setTimeout(() => {
@@ -266,8 +268,6 @@ class Carousel {
   
       const data = await response.text()
       let counter = 0
-
-      console.log(data)
 
       for(let row of data.split("\n")){
         if (counter !== 0) {
