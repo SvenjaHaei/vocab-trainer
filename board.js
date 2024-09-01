@@ -57,6 +57,7 @@ class Carousel {
     this.getData(chapter).then((res) => {
 
       // set counter
+      this.knownWords = 0
       this.board.querySelector('.counter').textContent  = '0/'+ res.length
       this.board.querySelector('.text').textContent = 'Great job. Get a treat.'
       this.showOptions()
