@@ -9,12 +9,14 @@ class Carousel {
     this.data = [[]]
     this.knownWords = 0
     this.chapterNames = [
+      ['7. Dům a byt', '1203741448'], 
       ['8. Plánujeme víkend', '0'], 
       ['9. Lidské tělo', '1994253440'],
       ['10. Místo, kde bydlíme', '982386913'], 
       ['11. Na davolené', '1306385996'], 
       ['12. Tradiční svátky', '761681440'],
-      ['13. Výmluvy a přání', '1148019362']]
+      ['13. Výmluvy a přání', '1148019362'],
+      ['14. Mluvíme o počasí', '1164562318']]
 
     this.initBoard()
 
