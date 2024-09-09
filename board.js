@@ -16,7 +16,8 @@ class Carousel {
       ['11. Na davolené', '1306385996'], 
       ['12. Tradiční svátky', '761681440'],
       ['13. Výmluvy a přání', '1148019362'],
-      ['14. Mluvíme o počasí', '1164562318']]
+      ['14. Mluvíme o počasí', '1164562318'],
+      ['15. Technika a komunikace', '173323973']]
 
     this.initBoard()
 
